@@ -2,18 +2,18 @@ package main
 
 import "fmt"
 
-func intSeq() func() int {
-	i := 0
-	return func() int {
-		i++
-		return i
-	}
-}
+//	func intSeq() func() int {
+//		i := 0
+//		return func() int {
+//			i++
+//			return i
+//		}
+//	}
 func main() {
-	nextInt := intSeq()
-	fmt.Println(nextInt())
-	fmt.Println(nextInt())
-	fmt.Println(nextInt())
-	nextInts := intSeq()
-	fmt.Println(nextInts())
+	s := "Sanzhar"
+	defer fmt.Println(s)
+	defer func() {
+		fmt.Println(s)
+	}()
+	s = "Abylay"
 }
