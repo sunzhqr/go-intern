@@ -2,20 +2,18 @@ package main
 
 import "fmt"
 
-//	func sum(nums ...int) {
-//		fmt.Print(nums, " ")
-//		total := 0
-//		for _, num := range nums {
-//			total += num
-//		}
-//		fmt.Println(total)
-//	}
-func main() {
-	func() {
-		fmt.Print("Hello ")
-	}()
-	world := func() {
-		fmt.Println("World")
+func intSeq() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
 	}
-	world()
+}
+func main() {
+	nextInt := intSeq()
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
+	nextInts := intSeq()
+	fmt.Println(nextInts())
 }
