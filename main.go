@@ -1,37 +1,40 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
-type Permission struct {
-	Role   string
-	Access bool
+type Relationship struct {
+	IsStraight bool
+	Partner    string
 }
 
-type User struct {
+type Buddy struct {
 	Name string
 }
 
 func main() {
-	var users = []User{{"Harry"}, {"Voldemort"}}
-	var hogwarts = make(map[User][]Permission, 2)
-	for key := range users {
-		fmt.Println(users[key])
-	}
-	for key := range users {
-		if _, ok := hogwarts[users[key]]; !ok {
-			hogwarts[users[key]] = make([]Permission, 0, 2)
+	buddies := []Buddy{{"Abylay"}, {"Aigali"}}
+	keksiki := make(map[Buddy][]Relationship, 2)
+	for key := range buddies {
+		if _, ok := keksiki[buddies[key]]; !ok {
+			keksiki[buddies[key]] = make([]Relationship, 0, 3)
 		}
-		hogwarts[users[key]] = append(hogwarts[users[key]], Permission{Role: "read_only", Access: true})
+		keksiki[buddies[key]] = append(keksiki[buddies[key]], Relationship{IsStraight: false, Partner: "Nur-Assyl"})
 	}
 
-	for _, user := range users {
-		hogwarts[user] = append(hogwarts[user], Permission{Role: "avada_kadavra", Access: true})
+	for _, v := range buddies {
+		if v == struct{ Name string }{"Aigali"} { // or v.Name == "Aigali"
+			keksiki[v] = append(keksiki[v], Relationship{IsStraight: true, Partner: "Atyn umytyp kaldym"})
+			continue
+		}
+		keksiki[v] = append(keksiki[v], Relationship{IsStraight: true, Partner: "Molya"})
 	}
 
-	hogwarts[User{"Harry"}] = append(hogwarts[User{"Harry"}], Permission{"auto_mirror", true})
+	keksiki[Buddy{"Abylay"}] = append(keksiki[Buddy{"Abylay"}], Relationship{IsStraight: true, Partner: "Aizhan"})
 
-	for ind, mag := range hogwarts {
-		fmt.Print("mag = ", ind, mag, "->")
-		fmt.Printf("%+v\n", hogwarts[ind])
+	for kekser, kekserInfo := range keksiki {
+		fmt.Print(kekser.Name, " -> ")
+		fmt.Printf("%+v\n", kekserInfo)
 	}
 }
